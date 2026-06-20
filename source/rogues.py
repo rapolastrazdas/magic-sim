@@ -3,7 +3,7 @@ from actions import *
 class Island(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Island.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Island.jpg')
         
     def generate_mana(self):
         return 'blue'
@@ -20,7 +20,7 @@ class Island(Land):
 class Swamp(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Swamp.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Swamp.jpg')
         self.types = ['Swamp']
 
     def generate_mana(self):
@@ -38,7 +38,7 @@ class Swamp(Land):
 class Watery_Grave(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Watery_Grave.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Watery_Grave.jpg")
         self.tapped = True
         self.types = ['Island', 'Swamp']
 
@@ -86,7 +86,7 @@ class Watery_Grave(Land):
 class Darkslick_Shores(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Darkslick_Shores.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Darkslick_Shores.jpg")
 
     def enter(self, player, opponent, ORDER):
         if len(player.battlefield.lands) > 3:
@@ -118,7 +118,7 @@ class Darkslick_Shores(Land):
 class Shipwreck_Marsh(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Shipwreck_Marsh.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Shipwreck_Marsh.jpg")
 
     def enter(self, player, opponent, ORDER):
         if len(player.battlefield.lands) < 2:
@@ -150,7 +150,7 @@ class Shipwreck_Marsh(Land):
 class Underground_River(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Underground_River.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Underground_River.jpg")
 
     def generate_mana(self, player):
         x = PLAYER_BATTLEFIELD_X
@@ -183,7 +183,7 @@ class Underground_River(Land):
 class Landfall(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Ruin_Crab.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Ruin_Crab.jpg')
 
     def effect(self, player, opponent, ORDER):
         for i in range(3):
@@ -195,7 +195,7 @@ class Landfall(Ability):
 class Ruin_Crab(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Ruin_Crab.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Ruin_Crab.jpg')
         self.power = 0
         self.toughness = 3
         self.types = ['Crab']
@@ -208,7 +208,7 @@ class Ruin_Crab(Creature):
 class Enforcer_Mill(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Thieves_Guild_Enforcer.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Thieves_Guild_Enforcer.jpg')
 
     def effect(self, player, opponent, ORDER):
         for i in range(2):
@@ -220,7 +220,7 @@ class Enforcer_Mill(Ability):
 class Thieves_Guild_Enforcer(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Thieves_Guild_Enforcer.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Thieves_Guild_Enforcer.jpg')
         self.power = 1
         self.toughness = 1
         self.types = ['Human', 'Rogue']
@@ -240,7 +240,7 @@ class Thieves_Guild_Enforcer(Creature):
 class Thief_Mill(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Soaring_Thought-Thief.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Soaring_Thought-Thief.jpg')
 
     def effect(self, player, opponent, ORDER):
         for i in range(2):
@@ -252,7 +252,7 @@ class Thief_Mill(Ability):
 class Soaring_Thought_Thief(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Soaring_Thought-Thief.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Soaring_Thought-Thief.jpg')
         self.power = 1
         self.toughness = 3
         self.types = ['Human', 'Rogue']
@@ -274,7 +274,7 @@ class Soaring_Thought_Thief(Creature):
 class Draw(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Faerie_Mastermind.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Faerie_Mastermind.jpg')
 
     def effect(self, player, opponent, ORDER):
         draw(player, opponent, ORDER)
@@ -282,7 +282,7 @@ class Draw(Ability):
 class Activate_Faerie(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Faerie_Mastermind.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Faerie_Mastermind.jpg')
         self.mana_cost = Counter({'blue': 1, 'generic': 3})
 
     def effect(self, player, opponent, ORDER):
@@ -292,7 +292,7 @@ class Activate_Faerie(Ability):
 class Faerie_Mastermind(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Faerie_Mastermind.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Faerie_Mastermind.jpg')
         self.power = 2
         self.toughness = 1
         self.types = ['Faerie', 'Rogue']
@@ -311,7 +311,7 @@ class Faerie_Mastermind(Creature):
 class Nighthawk_Scavenger(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Nighthawk_Scavenger.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Nighthawk_Scavenger.jpg')
         self.power = 1
         self.toughness = 3
         self.types = ['Vampire', 'Rogue']
@@ -355,7 +355,7 @@ class Nighthawk_Scavenger(Creature):
 class Thought_Seize(Sorcery):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Thought_Seize.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Thought_Seize.jpg')
         self.color = ['black']
         self.mana_cost = Counter({'black': 1})
         self.mana_value = 1
@@ -381,7 +381,7 @@ class Thought_Seize(Sorcery):
 class Of_One_Mind(Sorcery):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Of_One_Mind.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Of_One_Mind.jpg')
         self.color = ['blue']
         self.mana_cost = Counter({'blue': 1, 'generic': 2})
         self.mana_value = 3
@@ -409,7 +409,7 @@ class Of_One_Mind(Sorcery):
 class Drown_in_the_Loch(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Drown_in_the_Loch.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Drown_in_the_Loch.jpg')
         self.color = ['blue', 'black']
         self.mana_cost = Counter({'blue': 1, 'black': 1})
         self.mana_value = 2
@@ -462,7 +462,7 @@ class Drown_in_the_Loch(Instant):
 class Into_the_Story(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Into_the_Story.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Into_the_Story.jpg')
         self.color = ['blue']
         self.mana_cost = Counter({'blue': 2, 'generic': 5})
         self.mana_value = 7

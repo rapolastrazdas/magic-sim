@@ -1,9 +1,12 @@
 from actions import *
 
+SPRITES_PATH = os.path.join(os.path.dirname(__file__), "..", "sprites")
+
+
 class Island(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Island.jpg'
+        self.art = os.path.join(SPRITES_PATH, "Island.jpg")
         
     def generate_mana(self):
         return 'blue'
@@ -20,7 +23,7 @@ class Island(Land):
 class Plains(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Plains.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Plains.jpg')
         self.types = ['Plains']
 
     def generate_mana(self):
@@ -38,7 +41,7 @@ class Plains(Land):
 class Hallowed_Fountain(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Hallowed_Fountain.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Hallowed_Fountain.jpg")
         self.tapped = True
         self.types = ['Plains', 'Island']
 
@@ -86,7 +89,7 @@ class Hallowed_Fountain(Land):
 class Seachrome_Coast(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Seachrome_Coast.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Seachrome_Coast.jpg")
 
     def enter(self, player, opponent, ORDER):
         if len(player.battlefield.lands) > 3:
@@ -118,7 +121,7 @@ class Seachrome_Coast(Land):
 class Deserted_Beach(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Deserted_Beach.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Deserted_Beach.jpg")
 
     def enter(self, player, opponent, ORDER):
         if len(player.battlefield.lands) < 2:
@@ -150,7 +153,7 @@ class Deserted_Beach(Land):
 class Adarkar_Wastes(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Adarkar_Wastes.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Adarkar_Wastes.jpg")
 
     def generate_mana(self, player):
         x = PLAYER_BATTLEFIELD_X
@@ -183,7 +186,7 @@ class Adarkar_Wastes(Land):
 class Human_Token(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Human.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Human.jpg')
         self.power = 1
         self.toughness = 1
         self.types = ['Human']
@@ -195,7 +198,7 @@ class Human_Token(Creature):
 class Create_Human(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Castle_Ardenvale.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Castle_Ardenvale.jpg')
         self.mana_cost = Counter({'white': 2, 'generic': 2})
 
     def activate(self, player, opponent, ORDER):
@@ -211,7 +214,7 @@ class Create_Human(Ability):
 class Castle_Ardenvale(Land):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = "Castle_Ardenvale.jpg"
+        self.art = os.path.join(SPRITES_PATH, "Castle_Ardenvale.jpg")
         self.tapped = False
 
         self.create = Create_Human(self.controller)
@@ -250,7 +253,7 @@ class Castle_Ardenvale(Land):
 class Revitalize(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Revitalize.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Revitalize.jpg')
         self.color = ['white']
         self.mana_cost = Counter({'white': 1, 'generic': 1})
         self.mana_value = 2
@@ -262,7 +265,7 @@ class Revitalize(Instant):
 class Union_of_the_Third_Path(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Union_of_the_Third_Path.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Union_of_the_Third_Path.jpg')
         self.color = ['white']
         self.mana_cost = Counter({'white': 1, 'generic': 2})
         self.mana_value = 3
@@ -274,7 +277,7 @@ class Union_of_the_Third_Path(Instant):
 class Frantic_Inventory(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Frantic_Inventory.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Frantic_Inventory.jpg')
         self.color = ['blue']
         self.mana_cost = Counter({'blue': 1, 'generic': 1})
         self.mana_value = 2
@@ -288,7 +291,7 @@ class Frantic_Inventory(Instant):
 class Absorb(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Absorb.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Absorb.jpg')
         self.color = ['white', 'blue']
         self.mana_cost = Counter({'white': 1, 'blue': 2})
         self.mana_value = 3
@@ -314,7 +317,7 @@ class Absorb(Instant):
 class Dovins_Veto(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Dovins_Veto.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Dovins_Veto.jpg')
         self.color = ['white', 'blue']
         self.mana_cost = Counter({'white': 1, 'blue': 1})
         self.mana_value = 2
@@ -342,7 +345,7 @@ class Dovins_Veto(Instant):
 class Change_the_Equation(Instant):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Change_the_Equation.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Change_the_Equation.jpg')
         self.color = ['blue']
         self.mana_cost = Counter({'blue': 1, 'generic': 1})
         self.mana_value = 2
@@ -368,7 +371,7 @@ class Change_the_Equation(Instant):
 class Phyrexian_Token(Creature):
     def __init__(self, controller, x):
         super().__init__(controller)
-        self.art = 'Phyrexian.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Phyrexian.jpg')
         self.power = x
         self.toughness = x
         self.types = ['Phyrexian']
@@ -376,7 +379,7 @@ class Phyrexian_Token(Creature):
 class Transform(Ability):
     def __init__(self, controller, token, x):
         super().__init__(controller)
-        self.art = 'Incubator.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Incubator.jpg')
         self.mana_cost = Counter({'generic': 2})
 
         self.token = token
@@ -393,7 +396,7 @@ class Transform(Ability):
 class Incubator_Token(Artifact):
     def __init__(self, controller, x):
         super().__init__(controller)
-        self.art = 'Incubator.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Incubator.jpg')
 
         self.transform = Transform(self.controller, self, x)
 
@@ -403,7 +406,7 @@ class Incubator_Token(Artifact):
 class Sunfall(Sorcery):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Sunfall.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Sunfall.jpg')
         self.color = ['white']
         self.mana_cost = Counter({'white': 2, 'generic': 3})
         self.mana_value = 5
@@ -423,7 +426,7 @@ class Sunfall(Sorcery):
 class Teferi_Untap(Ability):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Teferi_Hero_of_Dominaria.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Teferi_Hero_of_Dominaria.jpg')
     
     def effect(self, player, opponent, ORDER):
         for i in range(2):
@@ -434,7 +437,7 @@ class Teferi_Untap(Ability):
 class Teferi_Draw(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Teferi_Hero_of_Dominaria.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Teferi_Hero_of_Dominaria.jpg')
         self.loyalty_cost = 1
 
     def effect(self, player, opponent, ORDER):
@@ -443,7 +446,7 @@ class Teferi_Draw(LoyaltyAbility):
 class Teferi_Bounce(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Teferi_Hero_of_Dominaria.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Teferi_Hero_of_Dominaria.jpg')
         self.loyalty_cost = -3
         
         self.targeted = True
@@ -478,7 +481,7 @@ class Teferi_Bounce(LoyaltyAbility):
 class Teferi_Exile(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Emblem.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Emblem.jpg')
         
         self.targeted = True
         self.target = None
@@ -509,7 +512,7 @@ class Teferi_Emblem(Emblem):
 class Teferi_Ult(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Teferi_Hero_of_Dominaria.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Teferi_Hero_of_Dominaria.jpg')
         self.loyalty_cost = -8
 
     def effect(self, player, opponent, STACK):
@@ -519,7 +522,7 @@ class Teferi_Ult(LoyaltyAbility):
 class Teferi_Hero_of_Dominaria(Planeswalker):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Teferi_Hero_of_Dominaria.jpg'
+        self.art = os.path.join(SPRITES_PATH, 'Teferi_Hero_of_Dominaria.jpg')
         self.color = ['white', 'blue']
         self.mana_cost = Counter({'white': 1, 'blue': 1, 'generic': 3})
         self.mana_value = 5
@@ -572,7 +575,7 @@ class Teferi_Hero_of_Dominaria(Planeswalker):
 class Samurai_Token(Creature):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'Samurai.png'
+        self.art = os.path.join(SPRITES_PATH, 'Samurai.png')
         self.power = 2
         self.toughness = 2
         self.types = ['Samurai']
@@ -585,7 +588,7 @@ class Samurai_Token(Creature):
 class Emperor_Buff(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'The_Wandering_Emperor.png'
+        self.art = os.path.join(SPRITES_PATH, 'The_Wandering_Emperor.png')
         self.loyalty_cost = + 1
         
         self.targeted = True
@@ -608,7 +611,7 @@ class Emperor_Buff(LoyaltyAbility):
 class Create_Samurai(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'The_Wandering_Emperor.png'
+        self.art = os.path.join(SPRITES_PATH, 'The_Wandering_Emperor.png')
         self.loyalty_cost = -1
 
     def effect(self, player, opponent, ORDER):
@@ -618,7 +621,7 @@ class Create_Samurai(LoyaltyAbility):
 class Exile(LoyaltyAbility):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'The_Wandering_Emperor.png'
+        self.art = os.path.join(SPRITES_PATH, 'The_Wandering_Emperor.png')
         self.loyalty_cost = -2
         
         self.targeted = True
@@ -644,7 +647,7 @@ class Exile(LoyaltyAbility):
 class The_Wandering_Emperor(Planeswalker):
     def __init__(self, controller):
         super().__init__(controller)
-        self.art = 'The_Wandering_Emperor.png'
+        self.art = os.path.join(SPRITES_PATH, 'The_Wandering_Emperor.png')
         self.color = ['white']
         self.mana_cost = Counter({'white': 2, 'generic': 2})
         self.mana_value = 4

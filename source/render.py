@@ -1,12 +1,18 @@
 import pygame
+import os
 from pygame.locals import *
 from grobal import *
 from card import *
 
+pygame.font.init()
+SPRITES_PATH = os.path.join(os.path.dirname(__file__), "..", "sprites")
+FONT26 = pygame.font.Font(os.path.join(SPRITES_PATH, "Beleren2016-Bold.ttf"), 26)
+FONT34 = pygame.font.Font(os.path.join(SPRITES_PATH, "Beleren2016-Bold.ttf"), 34)
+
 def render(player, opponent, card, Nothing, ORDER):
     global SCREEN
 
-    arena = pygame.image.load('Battlefield.jpg').convert()
+    arena = pygame.image.load(os.path.join(SPRITES_PATH, "Battlefield.jpg")).convert()
     arena = pygame.transform.smoothscale(arena, (SCREEN_WIDTH, SCREEN_HEIGHT))
     SCREEN.blit(arena, (0, 0))
     render_libraries(player, opponent)
@@ -47,7 +53,7 @@ def render_hands(player, opponent, selected):
         spacing = 5
     y = OPPONENT_HAND_Y
     for card in opponent.hand.cards:
-        art = pygame.image.load('Card_Back.jpg').convert()
+        art = pygame.image.load(os.path.join(SPRITES_PATH, "Card_Back.jpg")).convert()
         art = pygame.transform.rotate(art, 180)
         art = pygame.transform.smoothscale(art, (OPPONENT_CARD_WIDTH, OPPONENT_CARD_HEIGHT))
         SCREEN.blit(art, (x, y))
@@ -73,9 +79,8 @@ def render_libraries(player, opponent):
     global SCREEN
 
     mouse_pos = pygame.mouse.get_pos()
-    font = pygame.font.Font('Beleren2016-Bold.ttf', 30)
 
-    player_library = pygame.image.load('Card_Back.jpg').convert()
+    player_library = pygame.image.load(os.path.join(SPRITES_PATH, "Card_Back.jpg")).convert()
     player_library = pygame.transform.smoothscale(player_library, (PLAYER_DECK_WIDTH, PLAYER_DECK_HEIGHT))
 
     if len(player.library) > 0:
@@ -83,10 +88,10 @@ def render_libraries(player, opponent):
 
     player_rect = pygame.Rect(PLAYER_DECK_X, PLAYER_DECK_Y, PLAYER_DECK_WIDTH, PLAYER_DECK_HEIGHT)
     if player_rect.collidepoint(mouse_pos):
-        player_text = font.render(str(len(player.library)), True, (255, 255, 255))
+        player_text = FONT34.render(str(len(player.library)), True, (255, 255, 255))
         SCREEN.blit(player_text, (PLAYER_DECK_X, PLAYER_DECK_Y))
 
-    opponent_library = pygame.image.load('Card_Back.jpg').convert()
+    opponent_library = pygame.image.load(os.path.join(SPRITES_PATH, "Card_Back.jpg")).convert()
     opponent_library = pygame.transform.smoothscale(opponent_library, (OPPONENT_DECK_WIDTH, OPPONENT_DECK_HEIGHT))
 
     if len(opponent.library) > 0:
@@ -94,14 +99,13 @@ def render_libraries(player, opponent):
 
     opponent_rect = pygame.Rect(OPPONENT_DECK_X, OPPONENT_DECK_Y, OPPONENT_DECK_WIDTH, OPPONENT_DECK_HEIGHT)
     if opponent_rect.collidepoint(mouse_pos):
-        opponent_text = font.render(str(len(opponent.library)), True, (255, 255, 255))
+        opponent_text = FONT34.render(str(len(opponent.library)), True, (255, 255, 255))
         SCREEN.blit(opponent_text, (OPPONENT_DECK_X, OPPONENT_DECK_Y))
 
 def render_graveyards(player, opponent):
     global SCREEN
 
     mouse_pos = pygame.mouse.get_pos()
-    font = pygame.font.Font('Beleren2016-Bold.ttf', 30)
 
     if len(player.graveyard) > 0:
         player_graveyard = pygame.image.load(player.graveyard[0].art).convert()
@@ -110,7 +114,7 @@ def render_graveyards(player, opponent):
 
     player_rect = pygame.Rect(PLAYER_GRAVE_X, PLAYER_GRAVE_Y, PLAYER_GRAVE_WIDTH, PLAYER_GRAVE_HEIGHT)
     if player_rect.collidepoint(mouse_pos):
-        player_text = font.render(str(len(player.graveyard)), True, (255, 255, 255))
+        player_text = FONT34.render(str(len(player.graveyard)), True, (255, 255, 255))
         SCREEN.blit(player_text, (PLAYER_GRAVE_X, PLAYER_GRAVE_Y))
 
     
@@ -121,14 +125,13 @@ def render_graveyards(player, opponent):
 
     opponent_rect = pygame.Rect(OPPONENT_GRAVE_X, OPPONENT_GRAVE_Y, OPPONENT_GRAVE_WIDTH, OPPONENT_GRAVE_HEIGHT)
     if opponent_rect.collidepoint(mouse_pos):
-        opponent_text = font.render(str(len(opponent.graveyard)), True, (255, 255, 255))
+        opponent_text = FONT34.render(str(len(opponent.graveyard)), True, (255, 255, 255))
         SCREEN.blit(opponent_text, (OPPONENT_GRAVE_X, OPPONENT_GRAVE_Y))
 
 def render_battlefields(player, opponent):
     global SCREEN
 
     mouse_pos = pygame.mouse.get_pos()
-    font = pygame.font.Font('Beleren2016-Bold.ttf', 30)
 
     # Render my battlefield
     x = PLAYER_BATTLEFIELD_X
@@ -156,8 +159,7 @@ def render_battlefields(player, opponent):
             SCREEN.blit(art, (x, y))
         rect = pygame.Rect(x, y, PERMANENT_WIDTH, PERMANENT_HEIGHT)
         if rect.collidepoint(mouse_pos):
-            font = pygame.font.Font('Beleren2016-Bold.ttf', 20)
-            text = font.render(f'{creature.power + creature.powerup + creature.counters}/{creature.toughness + creature.toughnessup + creature.counters}', True, 'White')
+            text = FONT26.render(f'{creature.power + creature.powerup + creature.counters}/{creature.toughness + creature.toughnessup + creature.counters}', True, 'White')
             SCREEN.blit(text, (PERMANENT_WIDTH+x - 25, PERMANENT_HEIGHT+y))
         x += PERMANENT_WIDTH + BATTLEFIELD_SPACE
 
@@ -171,9 +173,8 @@ def render_battlefields(player, opponent):
         SCREEN.blit(art, (x, y))
         if issubclass(other.__class__, Planeswalker):
             rect = pygame.Rect(x, y, PERMANENT_WIDTH, PERMANENT_HEIGHT)
-            font = pygame.font.Font('Beleren2016-Bold.ttf', 30)
             if rect.collidepoint(mouse_pos):
-                text = font.render(str(other.loyalty), True, 'White')
+                text = FONT26.render(str(other.loyalty), True, 'White')
                 SCREEN.blit(text, (PERMANENT_WIDTH+x - 25, PERMANENT_HEIGHT+y))
         x -= PERMANENT_WIDTH - BATTLEFIELD_SPACE
 
@@ -203,8 +204,7 @@ def render_battlefields(player, opponent):
             SCREEN.blit(art, (x, y))
         rect = pygame.Rect(x, y, PERMANENT_WIDTH, PERMANENT_HEIGHT)
         if rect.collidepoint(mouse_pos):
-            font = pygame.font.Font('Beleren2016-Bold.ttf', 20)
-            text = font.render(f'{creature.power + creature.powerup + creature.counters}/{creature.toughness + creature.toughnessup + creature.counters}', True, 'White')
+            text = FONT26.render(f'{creature.power + creature.powerup + creature.counters}/{creature.toughness + creature.toughnessup + creature.counters}', True, 'White')
             SCREEN.blit(text, (PERMANENT_WIDTH+x - 25, PERMANENT_HEIGHT+y))
         x += PERMANENT_WIDTH + BATTLEFIELD_SPACE
 
@@ -216,16 +216,15 @@ def render_battlefields(player, opponent):
         SCREEN.blit(art, (x, y))
         if issubclass(other.__class__, Planeswalker):
             rect = pygame.Rect(x, y, PERMANENT_WIDTH, PERMANENT_HEIGHT)
-            font = pygame.font.Font('Beleren2016-Bold.ttf', 30)
             if rect.collidepoint(mouse_pos):
-                text = font.render(str(other.loyalty), True, 'White')
+                text = FONT26.render(str(other.loyalty), True, 'White')
                 SCREEN.blit(text, (PERMANENT_WIDTH+x - 25, PERMANENT_HEIGHT+y))
         x -= PERMANENT_WIDTH - BATTLEFIELD_SPACE
 
 def render_lives(player, opponent):
     global SCREEN
 
-    font = pygame.font.Font('Beleren2016-Bold.ttf', 60)
+    font = pygame.font.Font(os.path.join(SPRITES_PATH, "Beleren2016-Bold.ttf"), 60)
 
     player_life_total = font.render(str(player.life_total), True, 'Green')
     SCREEN.blit(player_life_total, (PLAYER_LIFE_X, PLAYER_LIFE_Y))
@@ -236,14 +235,12 @@ def render_lives(player, opponent):
 def render_mana_pools(player, opponent):
     global SCREEN
 
-    font = pygame.font.Font('Beleren2016-Bold.ttf', 20)
-
-    white = font.render(str(player.mana_pool.pool['white']), True, 'White')
-    blue = font.render(str(player.mana_pool.pool['blue']), True, 'Blue')
-    black = font.render(str(player.mana_pool.pool['black']), True, 'Black')
-    red = font.render(str(player.mana_pool.pool['red']), True, 'Red')
-    green = font.render(str(player.mana_pool.pool['green']), True, 'Green')
-    generic = font.render(str(player.mana_pool.pool['generic']), True, 'Gray')
+    white = FONT26.render(str(player.mana_pool.pool['white']), True, 'White')
+    blue = FONT26.render(str(player.mana_pool.pool['blue']), True, 'Blue')
+    black = FONT26.render(str(player.mana_pool.pool['black']), True, 'Black')
+    red = FONT26.render(str(player.mana_pool.pool['red']), True, 'Red')
+    green = FONT26.render(str(player.mana_pool.pool['green']), True, 'Green')
+    generic = FONT26.render(str(player.mana_pool.pool['generic']), True, 'Gray')
 
     x, y = PLAYER_MANA_POOL_X, PLAYER_MANA_POOL_Y
     if player.mana_pool.pool['white'] > 0:
@@ -265,12 +262,12 @@ def render_mana_pools(player, opponent):
         SCREEN.blit(generic, (x, y))
         y += 15
 
-    white = font.render(str(opponent.mana_pool.pool['white']), True, 'White')
-    blue = font.render(str(opponent.mana_pool.pool['blue']), True, 'Blue')
-    black = font.render(str(opponent.mana_pool.pool['black']), True, 'Black')
-    red = font.render(str(opponent.mana_pool.pool['red']), True, 'Red')
-    green = font.render(str(opponent.mana_pool.pool['green']), True, 'Green')
-    generic = font.render(str(opponent.mana_pool.pool['generic']), True, 'Gray')
+    white = FONT26.render(str(opponent.mana_pool.pool['white']), True, 'White')
+    blue = FONT26.render(str(opponent.mana_pool.pool['blue']), True, 'Blue')
+    black = FONT26.render(str(opponent.mana_pool.pool['black']), True, 'Black')
+    red = FONT26.render(str(opponent.mana_pool.pool['red']), True, 'Red')
+    green = FONT26.render(str(opponent.mana_pool.pool['green']), True, 'Green')
+    generic = FONT26.render(str(opponent.mana_pool.pool['generic']), True, 'Gray')
     
     x, y = OPPONENT_MANA_POOL_X, OPPONENT_MANA_POOL_Y
     if opponent.mana_pool.pool['white'] > 0:
@@ -295,19 +292,17 @@ def render_mana_pools(player, opponent):
 def render_phase(PRIORITY, TURN, PHASE):
     global SCREEN
 
-    font = pygame.font.Font('Beleren2016-Bold.ttf', 35)
     if PRIORITY == 'Player 1':
         color = 'Blue'
     elif PRIORITY == 'Player 2':
         color = 'Red'
     else:
         color = 'White'
-    phase_text = font.render(f'{TURN} {PHASE}', True, color)
+    phase_text = FONT34.render(f'{TURN} {PHASE}', True, color)
     SCREEN.blit(phase_text, (PHASE_X, PHASE_Y))
 
 def render_message(message):
     global SCREEN
-    font = font = pygame.font.Font('Beleren2016-Bold.ttf', 24)
-    text = font.render(message, True, 'White') 
+    text = FONT26.render(message, True, 'White') 
     rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT / 3))
     SCREEN.blit(text, rect)
